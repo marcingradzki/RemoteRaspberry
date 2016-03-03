@@ -5,7 +5,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <% include templates/headers.ejs %>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <form method="post" action="/">
+      <input type="submit" value="PRESS">
+    </form>
   </body>
 </html>
