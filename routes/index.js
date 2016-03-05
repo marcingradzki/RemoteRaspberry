@@ -15,15 +15,15 @@ router.post('/onoff', function(req, res){
   //console.log("Button has been pressed!");
   if(state){
     gpio.write(13, state, function(err) {
-        if (err) throw err;);
-      }
+        if (err) throw err;
+      });
     console.log("ON");
     state = false;
   }
   else{
     gpio.write(13, state, function(err) {
-        if (err) throw err;);
-      }
+        if (err) throw err;
+      });
     console.log("OFF");
     state = true;
   }
