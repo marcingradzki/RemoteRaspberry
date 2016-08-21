@@ -27,3 +27,5 @@ router.post('/api/photo', function(req, res) {
         res.end("File uploaded");
     });
 });
+
+module.exports = router;
