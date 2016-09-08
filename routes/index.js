@@ -4,8 +4,13 @@ var gpio = require('rpi-gpio');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Remote GPIO' });
+  res.render('index', { title: 'Login'});
 });
+
+router.post('/home', function(req, res, next){
+  res.render('index', { title: 'Remote GPIO',
+                        })
+})
 
 var state = false;
 
