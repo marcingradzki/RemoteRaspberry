@@ -11,11 +11,11 @@
       <div class="row">
         <div class="col-lg-6 col-lg-offset-3 text-center">
           <h2 class="page-header">Register</h2>
-          <form method="post" action="/users/register">
-             <div class="form-group">
-              <label>Name</label>
-              <input type="text" class="form-control" placeholder="Name" name="name">
-            </div>
+          <% if(errs != ''){ %>
+            <% for(var i = 0; i < errs.length; i++){ %>
+            <div class="alert alert-danger"><%=errs[i].msg%></div>
+          <%}}%>
+          <form method="post" action="/register/register">
             <div class="form-group">
               <label>Username</label>
               <input type="text" class="form-control" placeholder="Username" name="username">

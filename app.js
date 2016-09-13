@@ -14,7 +14,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/RemoteRaspberry');
+mongoose.connect('mongodb://localhost/remoteRaspberry');
 var db = mongoose.connection;
 
 var routes = require('./routes/index');
@@ -76,7 +76,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/', routes);
+app.use('/', user);
 app.use('/cloud', cloud);
 app.use('/register', user);
 

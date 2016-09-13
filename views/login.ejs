@@ -11,6 +11,9 @@
       <div class="row">
         <div class="col-lg-6 col-lg-offset-3 text-center">
           <h2 class="page-header">Account Login</h2>
+          <% if(success_msg != ''){ %>
+            <div class="alert alert-success"><%=success_msg%></div>
+          <% } %>
           <form method="post" action="/users/login">
             <div class="form-group">
               <label>Username</label>
