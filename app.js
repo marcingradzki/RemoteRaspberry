@@ -14,7 +14,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/remoteRaspberry');
+mongoose.connect('mongodb://192.168.1.3/RemoteRaspberry');
 var db = mongoose.connection;
 
 var index = require('./routes/index');
@@ -82,6 +82,7 @@ app.use('/cloud', cloud);
 app.use('/register', user);
 app.use('/login', user);
 app.use('/logout', user);
+app.use('/upload', cloud);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

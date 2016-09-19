@@ -3,22 +3,41 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script> 
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+      var fullPath = $("#uP").val();    
+      var filename = fullPath.replace(/^.*[\\\/]/, '');
+      $("document").ready(function(){
+        $("#uP").submit(function(){
+          $("p").text("tekst");
+        });
+      });
+    </script>
   </head>
   <body>
-    <% include templates/headers.ejs %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <form id="uploadForm"
-      enctype="multipart/form-data"
-      action="/api/photo"
-      method="post">
-      <input type="file" name="userPhoto" />
-      <input type="submit" value="Upload Image" name="submit">
-      <span id="status"></span>
-    </form>
-    
+    <div class="container" ng-app="">
+      <% include templates/headers.ejs %>
+      <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 text-center">
+          <h2 class="page-header">Storage</h2>
+          <p>Select file to upload</p>
+          <form id="uploadForm"
+            enctype="multipart/form-data"
+            action="/cloud/upload"
+            method="post">
+            <label class="btn btn-default btn-file">
+              Browse <input type="file" style="display: none;" name="userPhoto" id="uP">
+            </label>
+            <input type="submit" value="Upload Image" name="submit" class="btn btn-primary" ng-model="name">
+            <span id="status">{{name}}</span>
+            <p><p>
+          </form>      
+        </div>
+      </div>
+    </div>
     <script>
       $(document).ready(function(){
         $('#uploadForm').submit(function(){
