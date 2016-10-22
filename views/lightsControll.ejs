@@ -1,0 +1,56 @@
+<div class='container'>  
+    <div id='addBlock' class='square center-block'>
+        <div class='col-md-12 col-xs-12' align='center'><h3>Click to add relay</h3></div>
+        <div class='col-md-12 col-xs-12' align='center'>
+            <a href=''><span class='glyphicon glyphicon-plus-sign'></span></a>
+        </div>    
+    </div>
+    <!-- bloczki ze światłem -->
+    <div id='lightBlock' class='square-bulb center-block row'>
+        <div class='col-md-4 col-xs-4' >
+            <div><a href='#'><i class='fa fa-lightbulb-o' aria-hidden="true" id='1'></i></a></div>
+        </div>
+        <div class='col-md-8 col-xs-8' >
+            <!-- dane -->
+            <div class='row'>
+                <div class='col-sm-6 col-xs-6'><p>Name: </p></div>
+                <div class='col-sm-2 col-xs-2'><p>...............</p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6 col-xs-6'><p>Relay ID: </p></div>
+                <div class='col-sm-2 col-xs-2'><p>......</p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6 col-xs-6'><p>Status: </p></div>
+                <div class='col-sm-2 col-xs-2'><p>......</p></div>
+            </div>
+        </div>    
+    </div>
+
+    <div id='lightBlock' class='square-bulb center-block row'>
+        <div class='col-md-4' >
+            <div><a href='#'><i class='fa fa-lightbulb-o' aria-hidden="true" id='1'></i></a></div>
+        </div>
+        <div class='col-md-8' >
+            <!-- dane -->
+            <div class='row'>
+                <div class='col-sm-6'><p>Name: </p></div>
+                <div class='col-sm-2'><p>...............</p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6'><p>Relay ID: </p></div>
+                <div class='col-sm-2'><p>......</p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6'><p>Status: </p></div>
+                <div class='col-sm-2'><p>......</p></div>
+            </div>
+        </div>    
+    </div>
+
+</div>
+<script>
+    $("i[class^='fa']").on('click', function () {
+        $(this).toggleClass('color');
+    });
+</script>

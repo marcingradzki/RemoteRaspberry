@@ -1,0 +1,34 @@
+.square {
+    width: 20vw;
+    height: 9vw;
+    border: 3px solid #fff;   
+    border-radius: 10px; 
+    margin-bottom: 5px;
+}
+.square h3 {
+    color: #fff;
+}
+.glyphicon {
+    font-size: 40px;
+}
+.fa {
+    font-size: 8em !important;
+    color: #fff !important;
+}
+.color {
+    font-size: 8em !important;
+    color: #ffff00 !important;
+}
+.square-bulb {
+    width: 20vw;
+    height: 9vw;
+    border: 3px solid #fff;   
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+.square-bulb h3 {
+    color: #fff;
+}
+.square-bulb p {
+    margin-top: 8px;
+}
