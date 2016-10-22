@@ -4,9 +4,6 @@ var Light = require('./lightsClass.js');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
-
-
 var light = new Light();
 
 /* GET home page. */

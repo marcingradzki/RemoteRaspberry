@@ -14,7 +14,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/remoteRaspberry');
+mongoose.connect('mongodb://localhost/remoteRaspberry');//rr');
 var db = mongoose.connection;
 
 var index = require('./routes/index');
