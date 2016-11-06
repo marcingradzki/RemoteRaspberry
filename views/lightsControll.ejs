@@ -53,11 +53,11 @@
                 <!-- dane -->
                 <div class='row'>
                     <div class='col-sm-4 col-xs-4'><p>Name: </p></div>
-                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm" id="focusedInput" type="text"></p></div>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedName" type="text"></p></div>
                 </div>
                 <div class='row'>
                     <div class='col-sm-4 col-xs-4'><p>Relay ID: </p></div>
-                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm" id="focusedInput" type="text"></p></div>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedID"type="text"></p></div>
                 </div>
                 <!--<div class='row'>
                     <div class='col-sm-6 col-xs-6'><p>Status: </p></div>
@@ -78,6 +78,64 @@
     
 </div>
 <script>
+    //post relays names and ids to router
+    $('.confirm').on('click', function(){
+        var names = [];
+        var ids = [];
+        $('.show').find('.focusedName').each(function(){
+            var obj = $(this);
+            if(obj.val() != ""){
+                names.push(obj.val());
+            }
+            else{
+                alert('Add missing names or remove block!');
+                names = [];
+                ids = [];
+                return false;
+            }
+        });
+        $('.show').find('.focusedID').each(function(){
+            var obj = $(this);
+            if(obj.val() != ""){
+                ids.push(obj.val());
+            }
+            else{
+                alert('Add missing ids or remove block!');
+                ids = [];
+                names =[];
+                return false;
+            }
+        });
+
+        //send object to router
+        var lights = [];
+        if(ids != ''){
+            var room = {
+                roomName: "",
+                relayId: ""
+            };
+            for(let i = 0; i < ids.length; i++){
+                room = {};
+                room.roomName = names[i];
+                room.relayId = ids[i];
+                lights.push(room); 
+            }
+            lights = JSON.stringify(lights);
+            $.ajax({
+                type : 'POST',
+                url : 'lightsControll/update',
+                data: {
+                    newLights: lights
+                },
+                success: function(result){
+                    alert('Profile updated!');
+                }
+            });
+        }
+
+        return false;
+    });
+
     //light the bulb
     $("i[class='canSwitch']").on('click', function () {
         $(this).toggleClass('color');

@@ -11,6 +11,16 @@ router.get('/', function(req, res, next){
   res.render('index', {title: 'Remote GPIO', Light : Light});
 });
 
+router.post('/update', function(req, res){
+  var r = [];
+  r = req.body.newLights;
+  r = JSON.parse(r);
+  console.log('tutaj? ' + r[0].roomName);
+  res.render('lightsControll', {
+          title: 'Remote GPIO',
+        });
+});
+
 router.post('/', function(req, res){
   
   //rendering calych stron dziala, trzeba tu wrzucic stronke do nawigacji, ktora podaje dalej :D
@@ -28,9 +38,6 @@ router.post('/', function(req, res){
       });}
       else{
         console.log('nie tworze ' + home.freeRelaysNumber + ' ' + home.name);
-        var x = '' == home.lights;
-        var y = null == home.lights;
-        console.log(x + ' ' + y);
         //przekazac obiekt home do widoku i tam drukowac ilosc okienek
         res.render('lightsControll', {
           title: 'Remote GPIO',
