@@ -11,9 +11,23 @@
 .glyphicon {
     font-size: 40px;
 }
+.confirm {
+    font-size: 20px;
+}
+.delete {
+    font-size: 20px;
+    margin-left: 15px;
+}
+.red {
+    color: red; 
+}
+.txt {
+    margin-top: 5px;
+}
 .fa {
     font-size: 8em !important;
-    color: #fff !important;
+    color: #fff;
+    margin-top: 2px;
 }
 .color {
     font-size: 8em !important;
@@ -30,5 +44,25 @@
     color: #fff;
 }
 .square-bulb p {
-    margin-top: 8px;
+    margin-top: 14px;
+}
+.square-rec {
+    width: 20vw;
+    height: 4vw;
+    border: 3px solid #fff;   
+    border-radius: 10px; 
+    margin-bottom: 5px;
+}
+.square-rec .glyphicon {
+    margin-top: 6px;
+}
+.square-rec h3 {
+    margin-top: 12px;
+    color: #fff;
+}
+.hide{
+    display: none;
+}
+.show{
+    display:show;
 }

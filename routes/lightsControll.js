@@ -27,13 +27,19 @@ router.post('/', function(req, res){
         if (err) console.log('insert err');
       });}
       else{
-        console.log('nie tworze ' + home.freeRelaysNumber + ' ' + home.name + ' \n' + home);
+        console.log('nie tworze ' + home.freeRelaysNumber + ' ' + home.name);
+        var x = '' == home.lights;
+        var y = null == home.lights;
+        console.log(x + ' ' + y);
         //przekazac obiekt home do widoku i tam drukowac ilosc okienek
+        res.render('lightsControll', {
+          title: 'Remote GPIO',
+          Light : Light,
+          home: home
+        });
       }
     } 
   });
- 
-  res.render('lightsControll', {title: 'Remote GPIO', Light : Light});
 });
 var state = false;
 

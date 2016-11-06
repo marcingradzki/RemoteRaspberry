@@ -1,24 +1,38 @@
+
+
 <div class='container'>  
-    <div id='addBlock' class='square center-block'>
-        <div class='col-md-12 col-xs-12' align='center'><h3>Click to add relay</h3></div>
-        <div class='col-md-12 col-xs-12' align='center'>
-            <a href=''><span class='glyphicon glyphicon-plus-sign'></span></a>
-        </div>    
+    <div class='square-rec center-block row'>
+        <div class='col-lg-12 col-md-12'>
+            <%if(home.lights != ''){%>
+            <a href='#' class='col-lg-4'><span class='glyphicon glyphicon-edit'></span></a>
+            <h3 class='col-lg-8'>    Edit</h3>
+            <% }else{ %>
+            <div class='row' style='display:block'>
+                <div class='col-lg-6 txt'>
+                    <a href='#'><span id='confirm' class='glyphicon glyphicon-floppy-disk confirm'>Confirm</span></a>
+                </div>
+                <div class='col-lg-6 txt'>
+                    <a href='#'><span id='delete' class='glyphicon glyphicon-floppy-disk delete'>Delete</span></a>
+                </div>
+            </div>
+            <% } %>
+        </div>
     </div>
-    <!-- bloczki ze światłem -->
+    <%if(home.lights != ''){%><!-- home.lights != null -->
+    <%for(var i = 0; i < home.lights.length; i++){%>
     <div id='lightBlock' class='square-bulb center-block row'>
         <div class='col-md-4 col-xs-4' >
-            <div><a href='#'><i class='fa fa-lightbulb-o' aria-hidden="true" id='1'></i></a></div>
+            <div><a href='#'><i class='fa fa-lightbulb-o canSwitch' aria-hidden="true" id=''></i></a></div>
         </div>
         <div class='col-md-8 col-xs-8' >
             <!-- dane -->
             <div class='row'>
                 <div class='col-sm-6 col-xs-6'><p>Name: </p></div>
-                <div class='col-sm-2 col-xs-2'><p>...............</p></div>
+                <div class='col-sm-2 col-xs-2'><p><%=home.lights[i].roomName%></p></div>
             </div>
             <div class='row'>
                 <div class='col-sm-6 col-xs-6'><p>Relay ID: </p></div>
-                <div class='col-sm-2 col-xs-2'><p>......</p></div>
+                <div class='col-sm-2 col-xs-2'><p><%=home.lights[i].relayId%></p></div>
             </div>
             <div class='row'>
                 <div class='col-sm-6 col-xs-6'><p>Status: </p></div>
@@ -26,31 +40,99 @@
             </div>
         </div>    
     </div>
-
-    <div id='lightBlock' class='square-bulb center-block row'>
-        <div class='col-md-4' >
-            <div><a href='#'><i class='fa fa-lightbulb-o' aria-hidden="true" id='1'></i></a></div>
-        </div>
-        <div class='col-md-8' >
-            <!-- dane -->
-            <div class='row'>
-                <div class='col-sm-6'><p>Name: </p></div>
-                <div class='col-sm-2'><p>...............</p></div>
+    <% }}else{
+    %>
+    <div class='appear'>
+        <%for(var i = 0; i < 8; i++){%>
+    <div id='lightBlock<%=i%>' class='hide'>
+        <div class='square-bulb center-block row'>
+            <div class='col-md-4 col-xs-4' >
+                <div><a class='remove'><i class='fa fa-lightbulb-o' aria-hidden="true" ></i></a></div>
             </div>
-            <div class='row'>
-                <div class='col-sm-6'><p>Relay ID: </p></div>
-                <div class='col-sm-2'><p>......</p></div>
-            </div>
-            <div class='row'>
-                <div class='col-sm-6'><p>Status: </p></div>
-                <div class='col-sm-2'><p>......</p></div>
+            <div class='col-sm-8 col-xs-8' >
+                <!-- dane -->
+                <div class='row'>
+                    <div class='col-sm-4 col-xs-4'><p>Name: </p></div>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm" id="focusedInput" type="text"></p></div>
+                </div>
+                <div class='row'>
+                    <div class='col-sm-4 col-xs-4'><p>Relay ID: </p></div>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm" id="focusedInput" type="text"></p></div>
+                </div>
+                <!--<div class='row'>
+                    <div class='col-sm-6 col-xs-6'><p>Status: </p></div>
+                    <div class='col-sm-2 col-xs-2'><p>......</p></div>
+                </div>-->
             </div>
         </div>    
     </div>
-
+    <%}%>
+    </div>
+    <div id='addBlock' class='square center-block'>
+        <div class='col-md-12 col-xs-12' align='center'><h3>Click to add relay</h3></div>
+        <div class='col-md-12 col-xs-12' align='center'>
+            <a href='#'><span class='glyphicon glyphicon-plus-sign'></span></a>
+        </div>    
+    </div>
+    <%}%>
+    
 </div>
 <script>
-    $("i[class^='fa']").on('click', function () {
+    //light the bulb
+    $("i[class='canSwitch']").on('click', function () {
         $(this).toggleClass('color');
+        return false;
     });
+    var counter = collectIds();
+
+    //collects hidden bulbs ids
+    function collectIds(){
+        var ids = [];
+        $('.hide[id]').not('.show').map(function(){
+             ids.push(
+                 this.id.slice(this.id.length - 1))
+             });//(x => ids.push(x.id));
+        return ids;
+    }
+
+    //adds the bulb
+    $("span[class^='glyphicon glyphicon-plus-sign']").on('click', function () {
+        $('#lightBlock'+counter[0]).toggleClass('show');
+        counter = collectIds();
+        return false;
+    });
+
+    //activate delete mode
+    $('.delete').on('click', function(){
+        $(this).toggleClass('red');
+        var c = $(this).attr('class');
+        if(c.includes('red')){
+            $("div[class^='hide show']").children('div').css('border', '3px solid red');
+            $("div[class^='hide show']").find('i').removeClass('fa fa-lightbulb-o').addClass('fa fa-times').css('color', 'red');
+            $("div[class^='hide show']").find('a').attr('href', '#');
+            $('#addBlock').toggleClass('hide');
+        }
+        else{
+            $("div[class^='hide']").children('div').css('border', '3px solid #fff')
+            $("div[class^='hide show']").find('i').removeClass('fa fa-times').addClass('fa fa-lightbulb-o').css('color', '#fff');
+            $("div[class^='hide show']").find('a').removeAttr('href');
+            $('#addBlock').toggleClass('hide');
+        }
+        return false;
+    });
+
+    //removes bulb
+    $("a[class='remove']").on('click', function(){
+        var Href = $(this).attr('href');
+        if(typeof Href !== 'undefined'){
+            var num = $(this).closest(".hide").prop('id');
+            num = num.slice(num.length - 1);
+            $(this).find('i').removeClass('fa fa-times').addClass('fa fa-lightbulb-o').css('color', '#fff');
+            $(this).removeAttr('href');
+            $('#lightBlock'+num).toggleClass('show');
+        }
+        counter = collectIds();
+        return false;
+    });
+
 </script>
