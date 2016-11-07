@@ -25,8 +25,8 @@ module.exports.getNumberOfFreeRelays = function(){
 module.exports.createRelaySchema = function(newRelSchema, cb){
     newRelSchema.save(cb);
 }
-/*
+
 module.exports.find = function(name, cb){
     var querry = {name: name};
-    User.findOne(querry, cb);
-}*/
+    return User.findOne(querry, cb);
+}

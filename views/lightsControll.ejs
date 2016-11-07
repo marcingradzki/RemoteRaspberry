@@ -127,8 +127,9 @@
                 data: {
                     newLights: lights
                 },
-                success: function(result){
+                success: function(){
                     alert('Profile updated!');
+                    window.location.replace('/index'); 
                 }
             });
         }
