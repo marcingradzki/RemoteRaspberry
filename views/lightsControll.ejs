@@ -3,8 +3,8 @@
 <div class='container'>  
     <div class='square-rec center-block row'>
         <div class='col-lg-12 col-md-12'>
-            <%if(home.lights != ''){%>
-            <a href='#' class='col-lg-4'><span class='glyphicon glyphicon-edit'></span></a>
+            <%if((home.lights != '') && (!editMode) ){%>
+            <a href='#' class='col-lg-4'><span class='glyphicon glyphicon-edit edit'></span></a>
             <h3 class='col-lg-8'>    Edit</h3>
             <% }else{ %>
             <div class='row' style='display:block'>
@@ -18,7 +18,7 @@
             <% } %>
         </div>
     </div>
-    <%if(home.lights != ''){%><!-- home.lights != null -->
+    <%if((home.lights != '') && (!editMode) ){%><!-- home.lights != null -->
     <%for(var i = 0; i < home.lights.length; i++){%>
     <div id='lightBlock' class='square-bulb center-block row'>
         <div class='col-md-4 col-xs-4' >
@@ -40,9 +40,14 @@
             </div>
         </div>    
     </div>
-    <% }}else{
+    <% }}else if((home.lights == '') || (editMode) ){
     %>
     <div class='appear'>
+        <%
+        var len = 0;
+        if(editMode) len = home.lights.length;
+        else len = 8;
+        %>
         <%for(var i = 0; i < 8; i++){%>
     <div id='lightBlock<%=i%>' class='hide'>
         <div class='square-bulb center-block row'>
@@ -53,11 +58,23 @@
                 <!-- dane -->
                 <div class='row'>
                     <div class='col-sm-4 col-xs-4'><p>Name: </p></div>
+                    <%if(editMode && (i < len)){%>
+                    <div class='col-lg-8 col-sm-8'>
+                        <p><input class="form-control input-sm focusedName" type="text" value="<%=home.lights[i].roomName%>"></p>
+                    </div>
+                    <%}else{%>
                     <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedName" type="text"></p></div>
+                    <%}%>
                 </div>
                 <div class='row'>
                     <div class='col-sm-4 col-xs-4'><p>Relay ID: </p></div>
-                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedID"type="text"></p></div>
+                    <%if(editMode && (i < len)){%>
+                    <div class='col-lg-8 col-sm-8'>
+                        <p><input class="form-control input-sm focusedID" type="text" value="<%=home.lights[i].relayId%>"></p>
+                    </div>
+                    <%}else{%>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedID" type="text"></p></div>
+                    <%}%>
                 </div>
                 <!--<div class='row'>
                     <div class='col-sm-6 col-xs-6'><p>Status: </p></div>
@@ -78,6 +95,36 @@
     
 </div>
 <script>
+    //get the relays statuses
+    var statuses = [];
+    /*$(document).ready(function(){
+        $.ajax({
+                type : 'GET',
+                url : 'readStatuses',
+                success: function(result){
+                    statuses = result;
+                }
+            });
+    });*/
+
+    //turn on edit mode
+    $(document).on('click', '.edit' ,function(){
+        $.ajax({
+                type : 'POST',
+                url : 'lightsControll',
+                data: {
+                    editMode : true
+                },
+                success: function(result){
+                    $('#content').html(result);
+                    for(let i = 0; i< <%=home.lights.length%>; i++){
+                        $('#lightBlock' + i).toggleClass('show');
+                    }
+                    counter = collectIds();
+                }
+            });
+    });
+
     //post relays names and ids to router
     $('.confirm').on('click', function(){
         var names = [];
@@ -138,7 +185,7 @@
     });
 
     //light the bulb
-    $("i[class='canSwitch']").on('click', function () {
+    $(document).on('click', ".canSwitch" , function () {
         $(this).toggleClass('color');
         return false;
     });

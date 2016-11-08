@@ -8,7 +8,7 @@ var Relays = require('../models/relaysModel');
 var light = new Light();
 
 router.get('/', function(req, res, next){
-  res.render('index', {title: 'Remote GPIO', Light : Light});
+  res.render('index', {title: 'Remote GPIO', Light : Light, editMode : false});
 });
 
 router.post('/update', function(req, res){
@@ -31,26 +31,6 @@ router.post('/update', function(req, res){
           title: 'Remote GPIO'
         });
   });
-/*
-  var pr2 = new Promise(function(resolve, reject){
-        Relays.findOne({name: 'Home'}).exec(function(err, h){
-        if(err) console.log(err);
-        else{
-          console.log(h);
-          resolve(h);
-        }
-    })
-  });
-
-  pr2.then(function(r){
-    console.log(r);
-    res.render('lightsControll', {
-          title: 'Remote GPIO',
-          Light : Light,
-          home: r
-        });
-  });
-  */
 });
 
 router.post('/', function(req, res){
@@ -82,7 +62,8 @@ router.post('/', function(req, res){
         res.render('lightsControll', {
           title: 'Remote GPIO',
           Light : Light,
-          home: r
+          home: r, 
+          editMode : false
         });
       });
     }
@@ -90,7 +71,8 @@ router.post('/', function(req, res){
         res.render('lightsControll', {
           title: 'Remote GPIO',
           Light : Light,
-          home: home
+          home: home, 
+          editMode : req.body.editMode
         });
       }
     } 
