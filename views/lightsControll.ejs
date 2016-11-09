@@ -20,7 +20,7 @@
     </div>
     <%if((home.lights != '') && (!editMode) ){%><!-- home.lights != null -->
     <%for(var i = 0; i < home.lights.length; i++){%>
-    <div id='lightBlock' class='square-bulb center-block row'>
+    <div id='lightBlock<%=i%>' class='square-bulb center-block row'>
         <div class='col-md-4 col-xs-4' >
             <div><a href='#'><i class='fa fa-lightbulb-o canSwitch' aria-hidden="true" id=''></i></a></div>
         </div>
@@ -32,11 +32,11 @@
             </div>
             <div class='row'>
                 <div class='col-sm-6 col-xs-6'><p>Relay ID: </p></div>
-                <div class='col-sm-2 col-xs-2'><p><%=home.lights[i].relayId%></p></div>
+                <div class='col-sm-2 col-xs-2'><p class='relId'><%=home.lights[i].relayId%></p></div>
             </div>
             <div class='row'>
                 <div class='col-sm-6 col-xs-6'><p>Status: </p></div>
-                <div class='col-sm-2 col-xs-2'><p>......</p></div>
+                <div class='col-sm-2 col-xs-2'><p class='status'>OFF</p></div>
             </div>
         </div>    
     </div>
@@ -95,17 +95,33 @@
     
 </div>
 <script>
+    $(document).ready(function(){
+        ajaxIt();
+    });
+
     //get the relays statuses
-    var statuses = [];
-    /*$(document).ready(function(){
+    function ajaxIt (){
         $.ajax({
-                type : 'GET',
+                type : 'POST',
                 url : 'readStatuses',
                 success: function(result){
                     statuses = result;
+                    var bulbs = [];
+                    $('div[id^="lightBlock"]').each(function(){ bulbs.push(this.id.slice(10)); });
+                    console.log(bulbs.length);
+                    for(let i = 0; i < bulbs.length; i++){
+                        var num = $('#lightBlock' + i).find('.relId').text();
+                        if(1 == statuses[num - 1]){
+                            //console.log(num + ' ' + statuses[num - 1]);
+                            $('#lightBlock' + i).find('.status').text('ON');
+                            $('#lightBlock' + i).find('.canSwitch').toggleClass('color');
+                        }
+                    }
+
                 }
-            });
-    });*/
+            });    
+    }
+
 
     //turn on edit mode
     $(document).on('click', '.edit' ,function(){
@@ -187,6 +203,22 @@
     //light the bulb
     $(document).on('click', ".canSwitch" , function () {
         $(this).toggleClass('color');
+        var $parent = $(this).parent().parent().parent().parent();//.closest('square-bulb');
+        var id = $parent.find('.relId').text();
+        var status = ($parent.find('.status').text()) == 'ON'?0:1;
+        var text = (status == '1')?'ON':'OFF';
+        $parent.find('.status').text(text);
+        $.ajax({
+            type : 'POST',
+            url : 'readStatuses/toggle',
+            data: {
+                id: id,
+                status: status
+            },
+            success: function(){
+                console.log('toggle');
+            }
+        });
         return false;
     });
     var counter = collectIds();
@@ -235,6 +267,8 @@
             num = num.slice(num.length - 1);
             $(this).find('i').removeClass('fa fa-times').addClass('fa fa-lightbulb-o').css('color', '#fff');
             $(this).removeAttr('href');
+            $('#lightBlock'+num).find('.focusedID').removeAttr('value');
+            $('#lightBlock'+num).find('.focusedName').removeAttr('value');
             $('#lightBlock'+num).toggleClass('show');
         }
         counter = collectIds();
