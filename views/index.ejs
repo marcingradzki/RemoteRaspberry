@@ -28,16 +28,16 @@
     var statuses = [];
 
     $('#lightsBtn').click(function(){
-        renderIt('lightsControll');
+        renderIt('lightsControll', 'Lights Controll');
       }
     );
 
     $('#sensorsBtn').click(function(){
-        renderIt('sensorsControll');
+        renderIt('sensorsControll', 'Sensors Controll');
       }
     );
 
-    function renderIt(where){
+    function renderIt(where, title){
       $.ajax({
                 type : 'POST',
                 url : 'readStatuses',
@@ -48,6 +48,7 @@
                       url : where,
                       success: function(result){
                         $('#content').html(result);
+                        $('h3.text-muted').text(title);
                       }
                     })
                 }
