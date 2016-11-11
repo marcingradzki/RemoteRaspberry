@@ -28,13 +28,21 @@
     var statuses = ['dupa'];
 
     $('#lightsBtn').click(function(){
-      $.ajax({
-        type : 'POST',
-        url : 'lightsControll',
-        success: function(result){
-          $('#content').html(result);
-        }
-      })}
+        $.ajax({
+                type : 'POST',
+                url : 'readStatuses',
+                success: function(result){
+                    statuses = result;
+                    $.ajax({
+                      type : 'POST',
+                      url : 'lightsControll',
+                      success: function(result){
+                        $('#content').html(result);
+                      }
+                    })
+                }
+        });
+      }
     );
   </script>
 </html>

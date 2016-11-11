@@ -14,14 +14,11 @@ var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, funct
 function cb(){
  port.on('data',function(data){
   var buff = new Buffer(data);
-  console.log('Data ' + buff.toString('hex'));
   statuses = buff.toString('hex').slice(4);
   statuses = statuses.split('');
-  console.log('before ' + statuses);
   for(let i = 0; i < 8; i++){
     statuses.splice(i,1);
   }  
-  console.log('after ' + statuses);
  } );
 };
 
@@ -32,7 +29,6 @@ router.post('/toggle', function(req, res){
       }
       var ID = '0x0' + req.body.id;
       var STAT = '0x0' + req.body.status;
-      console.log(ID + " -- " + STAT);
       port.write(['0xFF', ID , STAT]);
     resolve(statuses);
   });

@@ -4,11 +4,33 @@ var Light = require('./lightsClass.js');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Relays = require('../models/relaysModel');
+var SerialPort = require('serialport');
 
 var light = new Light();
 
+var statuses = [];
+/*
+var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, function(){
+});
+
+
+function cb(){
+ port.on('data',function(data){
+  var buff = new Buffer(data);
+  console.log('Data ' + buff.toString('hex'));
+  statuses = buff.toString('hex').slice(4);
+  statuses = statuses.split('');
+  console.log('before ' + statuses);
+  for(let i = 0; i < 8; i++){
+    statuses.splice(i,1);
+  }  
+  console.log('after ' + statuses);
+ } );
+};
+*/
+
 router.get('/', function(req, res, next){
-  res.render('index', {title: 'Remote GPIO', Light : Light, editMode : false});
+  res.render('index', {title: 'Remote GPIO', Light : Light, editMode : false, statuses: statuses});
 });
 
 router.post('/update', function(req, res){
@@ -28,7 +50,7 @@ router.post('/update', function(req, res){
   pr.then(function(s){
     console.log(s);
     res.render('index', {
-          title: 'Remote GPIO'
+          title: 'Remote GPIO', statuses: statuses
         });
   });
 });
@@ -63,7 +85,8 @@ router.post('/', function(req, res){
           title: 'Remote GPIO',
           Light : Light,
           home: r, 
-          editMode : false
+          editMode : false,
+          statuses: statuses
         });
       });
     }
@@ -72,7 +95,8 @@ router.post('/', function(req, res){
           title: 'Remote GPIO',
           Light : Light,
           home: home, 
-          editMode : req.body.editMode
+          editMode : req.body.editMode,
+          statuses: statuses
         });
       }
     } 
