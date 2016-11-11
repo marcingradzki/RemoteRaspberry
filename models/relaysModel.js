@@ -13,6 +13,10 @@ var RelaysSchema = mongoose.Schema({
     lights: [{
         roomName: String,
         relayId: Number
+    }],
+    sensors: [{
+        sensorPin: String,
+        relayId: Number
     }]
 });
 

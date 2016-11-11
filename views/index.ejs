@@ -25,24 +25,34 @@
     src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
   </script>
   <script>
-    var statuses = ['dupa'];
+    var statuses = [];
 
     $('#lightsBtn').click(function(){
-        $.ajax({
+        renderIt('lightsControll');
+      }
+    );
+
+    $('#sensorsBtn').click(function(){
+        renderIt('sensorsControll');
+      }
+    );
+
+    function renderIt(where){
+      $.ajax({
                 type : 'POST',
                 url : 'readStatuses',
                 success: function(result){
                     statuses = result;
                     $.ajax({
                       type : 'POST',
-                      url : 'lightsControll',
+                      url : where,
                       success: function(result){
                         $('#content').html(result);
                       }
                     })
                 }
         });
-      }
-    );
+    };
+
   </script>
 </html>

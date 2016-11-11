@@ -9,28 +9,9 @@ var SerialPort = require('serialport');
 var light = new Light();
 
 var statuses = [];
-/*
-var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, function(){
-});
-
-
-function cb(){
- port.on('data',function(data){
-  var buff = new Buffer(data);
-  console.log('Data ' + buff.toString('hex'));
-  statuses = buff.toString('hex').slice(4);
-  statuses = statuses.split('');
-  console.log('before ' + statuses);
-  for(let i = 0; i < 8; i++){
-    statuses.splice(i,1);
-  }  
-  console.log('after ' + statuses);
- } );
-};
-*/
 
 router.get('/', function(req, res, next){
-  res.render('index', {title: 'Remote GPIO', Light : Light, editMode : false, statuses: statuses});
+  res.render('index', {title: 'Lights Controll', Light : Light, editMode : false, statuses: statuses});
 });
 
 router.post('/update', function(req, res){
@@ -50,7 +31,7 @@ router.post('/update', function(req, res){
   pr.then(function(s){
     console.log(s);
     res.render('index', {
-          title: 'Remote GPIO', statuses: statuses
+          title: 'Lights Controll', statuses: statuses
         });
   });
 });
@@ -61,7 +42,8 @@ router.post('/', function(req, res){
   var newSchema = new Relays({
     name : 'Home',
     freeRelaysNumber: 8,
-    lights: []
+    lights: [],
+    sensors: []
   });
   Relays.findOne({name: 'Home'}, function(err, home){
     if(err) console.log(err);
@@ -82,7 +64,7 @@ router.post('/', function(req, res){
         p1.then(function(r){
           console.log(r);
         res.render('lightsControll', {
-          title: 'Remote GPIO',
+          title: 'Lights Controll',
           Light : Light,
           home: r, 
           editMode : false,
@@ -92,7 +74,7 @@ router.post('/', function(req, res){
     }
       else{
         res.render('lightsControll', {
-          title: 'Remote GPIO',
+          title: 'Lights Controll',
           Light : Light,
           home: home, 
           editMode : req.body.editMode,

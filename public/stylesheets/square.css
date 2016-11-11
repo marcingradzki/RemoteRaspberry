@@ -24,10 +24,20 @@
 .txt {
     margin-top: 5px;
 }
-.fa {
+.fa-lightbulb-o {
     font-size: 8em !important;
     color: #fff;
     margin-top: 2px;
+}
+.fa-times {
+    font-size: 8em !important;
+    color: #fff;
+    margin-top: 2px;
+}
+.fa-plug {
+    font-size: 6em !important;
+    color: #fff;
+    margin-top: 15px;
 }
 .color {
     font-size: 8em !important;
@@ -65,4 +75,7 @@
 }
 .show{
     display:show;
+}
+.space {
+    margin-left: 10px;
 }
