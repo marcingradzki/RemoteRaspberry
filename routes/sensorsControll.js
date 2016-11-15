@@ -5,10 +5,22 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Relays = require('../models/relaysModel');
 var SerialPort = require('serialport');
+var process = require('child_process');
 
 var light = new Light();
 
 var statuses = [];
+
+router.post('/childProcess', function(req, res){
+  var ls = process.exec('sudo node ../RemoteRaspberry/rpi.js', function (error, stdout, stderr) {
+    if(error){
+      console.log(error.code + error);
+    }
+    else{
+      console.log('gitara');
+    }
+  });
+});
 
 router.post('/update', function(req, res){
   var lightObjects = [];

@@ -27,6 +27,7 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
-    "serialport" : "*"
+    "serialport" : "*",
+    "rpi-gpio" : "*"
   }
 }

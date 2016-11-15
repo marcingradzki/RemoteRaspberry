@@ -37,6 +37,17 @@
       }
     );
 
+    $('#temperatureBtn').click(function(){
+        $.ajax({
+                type : 'POST',
+                        url : 'readStatuses/childProcess',
+                        success: function(){ 
+                            window.location.replace('/index');
+                        }
+            });
+      }
+    );
+
     function renderIt(where, title){
       $.ajax({
                 type : 'POST',

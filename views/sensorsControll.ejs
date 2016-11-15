@@ -188,11 +188,18 @@
                 },
                 success: function(){
                     alert('Profile updated!');
-                    window.location.replace('/index'); 
+                    $.ajax({
+                        type : 'POST',
+                        url : 'readStatuses/childProcess',
+                        success: function(){ 
+                            window.location.replace('/index');
+                        }
+                    });
+                     
                 }
             });
         }
-
+        
         return false;
     });
 
