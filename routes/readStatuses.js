@@ -4,7 +4,7 @@ var Light = require('./lightsClass.js');
 var SerialPort = require('serialport');
 var process = require('child_process');
 var light = new Light();
-
+var t = [12,18];
 var statuses = [];
 var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, function(){
         port.write(['0xFF','0xA1','0x00'], cb(port));
@@ -23,7 +23,19 @@ function cb(port){
 
 router.post('/childProcess', function(req, res){
   //port.close();
-  var ls = process.exec('node ../RemoteRaspberry/rpi.js', function (error, stdout, stderr) {
+  var sensorObj = [];
+  sensorObj = req.body.newLights;
+  console.log(sensorObj);
+  sensorObj = JSON.parse(sensorObj);
+  var len = sensorObj.length;
+  for(var i = 0; i < len; i++){
+    (function(i){
+      //rpi.js 1 2 3 => [1:relay , 2:gpioPIN , 3:delay in ms]
+      console.log('node ../RemoteRaspberry/rpi.js ' + sensorObj[i].relayId + ' ' + 
+      sensorObj[i].sensorPin + ' ' + sensorObj[i].delay);
+      var ls = process.exec('node ../RemoteRaspberry/rpi.js ' + sensorObj[i].relayId + ' ' + 
+      sensorObj[i].sensorPin + ' ' + sensorObj[i].delay,
+       function (error, stdout, stderr) {
     if(error){
       console.log(error.code + error);
     }
@@ -31,6 +43,8 @@ router.post('/childProcess', function(req, res){
       console.log('gitara');
     }
   });
+    }(i))
+  }
 });
 
 router.post('/toggle', function(req, res){

@@ -79,3 +79,14 @@
 .space {
     margin-left: 10px;
 }
+.bigger {
+    height: 12vw !important;
+}
+.pullDown {
+    margin-top: 35px;
+}
+
+.pullUp {
+    margin-top: 15px;
+    margin-left: -10px;
+}

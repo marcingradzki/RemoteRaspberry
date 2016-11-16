@@ -16,7 +16,8 @@ var RelaysSchema = mongoose.Schema({
     }],
     sensors: [{
         sensorPin: String,
-        relayId: Number
+        relayId: Number,
+        delay: Number
     }]
 });
 
