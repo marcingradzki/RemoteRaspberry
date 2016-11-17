@@ -31,18 +31,17 @@ router.post('/childProcess', function(req, res){
   for(var i = 0; i < len; i++){
     (function(i){
       //rpi.js 1 2 3 => [1:relay , 2:gpioPIN , 3:delay in ms]
-      console.log('node ../RemoteRaspberry/rpi.js ' + sensorObj[i].relayId + ' ' + 
-      sensorObj[i].sensorPin + ' ' + sensorObj[i].delay);
-      var ls = process.exec('node ../RemoteRaspberry/rpi.js ' + sensorObj[i].relayId + ' ' + 
-      sensorObj[i].sensorPin + ' ' + sensorObj[i].delay,
-       function (error, stdout, stderr) {
-    if(error){
-      console.log(error.code + error);
-    }
-    else{
-      console.log('gitara');
-    }
-  });
+      setTimeout(function(){
+        console.log('node ../RemoteRaspberry/rpi.js ' + sensorObj[i].relayId + ' ' + 
+          sensorObj[i].sensorPin + ' ' + sensorObj[i].delay);
+        var ls = process.exec('node ../RemoteRaspberry/rpi.js ' + sensorObj[i].relayId + ' ' + 
+          sensorObj[i].sensorPin + ' ' + sensorObj[i].delay,
+        function (error, stdout, stderr) {
+          if(error){
+            console.log(error.code + error);
+           }
+       });  
+      },2000);
     }(i))
   }
 });
