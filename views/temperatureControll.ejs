@@ -108,7 +108,14 @@
                     <div class='col-sm-4 col-xs-4'><p style='margin-top:20px' >Range: </p></div>
                     <%if(editMode && (i < len)){%>
                     <div class='col-lg-8 col-sm-8'>
-                        <p><input class="form-control input-sm focusedRange" type="text" value="<%=home.temperature[i].range%>"></p>
+                        <p>
+                            <div class="form-group">
+                            <select class="form-control focusedRange" id="focusedRange">
+                                <option>More</option>
+                                <option>Less</option>
+                            </select>
+                            </div>
+                        </p>
                     </div>
                     <%}else{%>
                     <div class='col-lg-8 col-sm-8'>
@@ -173,7 +180,7 @@
     $(document).on('click', '.edit' ,function(){
         $.ajax({
                 type : 'POST',
-                url : 'sensorsControll',
+                url : 'temperatureControll',
                 data: {
                     editMode : true
                 },
@@ -302,7 +309,7 @@
                     alert('Profile updated!');
                     $.ajax({
                         type : 'POST',
-                        url : 'readStatuses/childProcess',
+                        url : 'readStatuses/temperature',
                         data: {
                             newLights: lights
                         },

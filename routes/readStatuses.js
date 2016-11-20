@@ -46,6 +46,32 @@ router.post('/childProcess', function(req, res){
   }
 });
 
+router.post('/temperature', function(req, res){
+  //port.close();
+  var sensorObj = [];
+  sensorObj = req.body.newLights;
+  console.log(sensorObj);
+  sensorObj = JSON.parse(sensorObj);
+  var len = sensorObj.length;
+  console.log('====>' + sensorObj);
+  for(var i = 0; i < len; i++){
+    (function(i){
+      //tem.js 1 2 3 4 5 => [1:gpio , 2:relayId , 3:more/less , 4:treshold]
+      setTimeout(function(){
+        console.log('node ../RemoteRaspberry/tem.js ' + sensorObj[i].gpio + ' ' + 
+          sensorObj[i].relayId + ' ' + sensorObj[i].range + ' ' + sensorObj[i].treshold);
+        var ls = process.exec('node ../RemoteRaspberry/tem.js ' + sensorObj[i].gpio + ' ' + 
+          sensorObj[i].relayId + ' ' + sensorObj[i].range + ' ' + sensorObj[i].treshold,
+        function (error, stdout, stderr) {
+          if(error){
+            console.log(error.code + error);
+           }
+       });  
+      },2000);
+    }(i))
+  }
+});
+
 router.post('/toggle', function(req, res){
   var p1 = new Promise(function(resolve, reject){
       /*var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, function(){
