@@ -23,6 +23,7 @@ var user = require('./routes/user');
 var lightsControll = require('./routes/lightsControll');
 var readStatuses = require('./routes/readStatuses');
 var sensorsControll = require('./routes/sensorsControll');
+var temperatureControll = require('./routes/temperatureControll');
 
 var app = express();
 
@@ -89,6 +90,7 @@ app.use('/upload', cloud);
 app.use('/lightsControll', lightsControll);
 app.use('/readStatuses', readStatuses);
 app.use('/sensorsControll', sensorsControll);
+app.use('/temperatureControll', temperatureControll);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

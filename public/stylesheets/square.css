@@ -39,6 +39,12 @@
     color: #fff;
     margin-top: 15px;
 }
+.fa-thermometer-2{
+    font-size: 8em !important;
+    color: #fff;
+    margin-top: 5px;
+
+}
 .color {
     /*font-size: 8em !important;*/
     color: #ffff00 !important;
@@ -86,7 +92,19 @@
     margin-top: 35px;
 }
 
+.pullDownD {
+    margin-top: 55px;
+}
+
 .pullUp {
     margin-top: 15px;
     margin-left: -10px;
+}
+.square-temp {
+    width: 20vw;
+    height: 18vw;
+    border: 3px solid #fff;   
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }

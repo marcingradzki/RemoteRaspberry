@@ -2,10 +2,15 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src='/js/bootstrap.js'></script>
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/square.css' />
     <link rel='stylesheet' href='/stylesheets/font-awesome.min.css' />
+    <link rel='stylesheet' href='/stylesheets/weather-icons.min.css' />
   </head>
   <body>
     <div class='container'>
@@ -21,9 +26,6 @@
       </div>
     </div>
   </body>
-  <script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
-  </script>
   <script>
     var statuses = [];
 
@@ -38,13 +40,7 @@
     );
 
     $('#temperatureBtn').click(function(){
-        $.ajax({
-                type : 'POST',
-                        url : 'readStatuses/childProcess',
-                        success: function(){ 
-                            window.location.replace('/index');
-                        }
-            });
+        renderIt('temperatureControll', 'Temperature Controll');
       }
     );
 

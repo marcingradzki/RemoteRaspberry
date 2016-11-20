@@ -1,0 +1,377 @@
+
+
+<div class='container'>  
+    <div class='square-rec center-block row'>
+        <div class='col-lg-12 col-md-12'>
+            <%if((home.temperature != '') && (!editMode) ){%>
+            <a href='#' class='col-lg-4'><span class='glyphicon glyphicon-edit edit'></span></a>
+            <h3 class='col-lg-8'>    Edit</h3>
+            <% }else{ %>
+            <div class='row' style='display:block'>
+                <div class='col-lg-6 txt'>
+                    <a href='#'><span id='confirm' class='glyphicon glyphicon-floppy-disk confirm'>Confirm</span></a>
+                </div>
+                <div class='col-lg-6 txt'>
+                    <a href='#'><span id='delete' class='glyphicon glyphicon-floppy-disk delete'>Delete</span></a>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <%if((home.temperature != '') && (!editMode) ){%><!-- home.temperature != null -->
+    <%for(var i = 0; i < home.temperature.length; i++){%>
+    <div id='lightBlock<%=i%>' class='square-temp center-block row'>
+        <div class='col-md-4 col-xs-4' >
+            <div><a href='#'><i class='fa fa-thermometer-2 pullDownD canSwitch' aria-hidden="true" id=''></i></a></div>
+        </div>
+        <div class='col-md-8 col-xs-8' >
+            <!-- dane -->
+            <div class='row'>
+                <div class='col-lg-6 col-xs-7'><p>Name:</p></div>
+                <div class='col-lg-2 col-xs-1'><p><%=home.temperature[i].name%></p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6 col-xs-6'><p>GPIO: </p></div>
+                <div class='col-sm-2 col-xs-2'><p class='relId'><%=home.temperature[i].gpio%></p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6 col-xs-6'><p>Relay ID: </p></div>
+                <div class='col-sm-2 col-xs-2'><p><%=home.temperature[i].relayId%></p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6 col-xs-6'><p>Treshold: </p></div>
+                <div class='col-sm-2 col-xs-2'><p><%=home.temperature[i].treshold%></p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6 col-xs-6'><p>Range: </p></div>
+                <div class='col-sm-2 col-xs-2'><p><%=home.temperature[i].range%></p></div>
+            </div>
+        </div>    
+    </div>
+    <% }}else if((home.temperature == '') || (editMode) ){
+    %>
+    <div class='appear'>
+        <%
+        var len = 0;
+        if(editMode) len = home.temperature.length;
+        else len = 8;
+        %>
+        <%for(var i = 0; i < 8; i++){%>
+    <div id='lightBlock<%=i%>' class='hide'>
+        <div class='square-temp center-block row'>
+            <div class='col-md-4 col-xs-4' >
+                <div><a class='remove'><i class='fa fa-thermometer-2 pullDownD' aria-hidden="true" ></i></a></div>
+            </div>
+            <div class='col-sm-8 col-xs-8' >
+                <!-- dane -->
+                <div class='row' style='margin-top:10px'>
+                    <div class='col-sm-4 col-xs-4'><p>Name: </p></div>
+                    <%if(editMode && (i < len)){%>
+                    <div class='col-lg-8 col-sm-8'>
+                        <p><input class="form-control input-sm focusedName" type="text" value="<%=home.temperature[i].name%>"></p>
+                    </div>
+                    <%}else{%>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedName" type="text"></p></div>
+                    <%}%>
+                </div>
+                <div class='row'>
+                    <div class='col-sm-4 col-xs-4'><p>GPIO: </p></div>
+                    <%if(editMode && (i < len)){%>
+                    <div class='col-lg-8 col-sm-8'>
+                        <p><input class="form-control input-sm focusedGPIO" type="text" value="<%=home.temperature[i].gpio%>"></p>
+                    </div>
+                    <%}else{%>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedGPIO" type="text"></p></div>
+                    <%}%>
+                </div>
+                <div class='row'>
+                    <div class='col-sm-4 col-xs-4'><p>Relay ID: </p></div>
+                    <%if(editMode && (i < len)){%>
+                    <div class='col-lg-8 col-sm-8'>
+                        <p><input class="form-control input-sm focusedID" type="text" value="<%=home.temperature[i].relayId%>"></p>
+                    </div>
+                    <%}else{%>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedID" type="text"></p></div>
+                    <%}%>
+                </div>
+                <div class='row'>
+                    <div class='col-sm-4 col-xs-4'><p>Treshold: </p></div>
+                    <%if(editMode && (i < len)){%>
+                    <div class='col-lg-8 col-sm-8'>
+                        <p><input class="form-control input-sm focusedTreshold" type="text" value="<%=home.temperature[i].treshold%>"></p>
+                    </div>
+                    <%}else{%>
+                    <div class='col-lg-8 col-sm-8'><p><input class="form-control input-sm focusedTreshold" type="text"></p></div>
+                    <%}%>
+                </div>
+                <div class='row'>
+                    <div class='col-sm-4 col-xs-4'><p style='margin-top:20px' >Range: </p></div>
+                    <%if(editMode && (i < len)){%>
+                    <div class='col-lg-8 col-sm-8'>
+                        <p><input class="form-control input-sm focusedRange" type="text" value="<%=home.temperature[i].range%>"></p>
+                    </div>
+                    <%}else{%>
+                    <div class='col-lg-8 col-sm-8'>
+                        <p>
+                            <div class="form-group">
+                            <select class="form-control focusedRange" id="focusedRange">
+                                <option>More</option>
+                                <option>Less</option>
+                            </select>
+                            </div>
+                        </p>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <%}%>
+    </div>
+    <div id='addBlock' class='square center-block'>
+        <div class='col-md-12 col-xs-12' align='center'><h3>Click to add sensor</h3></div>
+        <div class='col-md-12 col-xs-12' align='center'>
+            <a href='#'><span class='glyphicon glyphicon-plus-sign'></span></a>
+        </div>    
+    </div>
+    <%}%>
+    
+</div>
+<script>
+    $(document).ready(function(){
+        ajaxIt();
+    });
+
+    /*$(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+*/
+    //get the relays statuses
+    function ajaxIt (){
+        $.ajax({
+                type : 'POST',
+                url : 'readStatuses',
+                success: function(result){
+                    statuses = result;
+                    var bulbs = [];
+                    $('div[id^="lightBlock"]').each(function(){ bulbs.push(this.id.slice(10)); });
+                    for(let i = 0; i < bulbs.length; i++){
+                        var num = $('#lightBlock' + i).find('.relId').text();
+                        if(1 == statuses[num - 1]){
+                            //console.log(num + ' ' + statuses[num - 1]);
+                            //$('#lightBlock' + i).find('.status').text('ON');
+                            $('#lightBlock' + i).find('.canSwitch').toggleClass('color');
+                        }
+                    }
+
+                }
+            });    
+    }
+
+
+    //turn on edit mode
+    $(document).on('click', '.edit' ,function(){
+        $.ajax({
+                type : 'POST',
+                url : 'sensorsControll',
+                data: {
+                    editMode : true
+                },
+                success: function(result){
+                    $('#content').html(result);
+                    for(let i = 0; i< <%=home.temperature.length%>; i++){
+                        $('#lightBlock' + i).toggleClass('show');
+                    }
+                    counter = collectIds();
+                }
+            });
+    });
+
+    //post relays names and ids to router
+    $('.confirm').on('click', function(){
+        var names = [];
+        var ids = [];
+        var gpio = [];
+        var treshold = [];
+        var range = [];
+        
+        $('.show').find('.focusedGPIO').each(function(){
+            var obj = $(this);
+            if(obj.val() != ""){
+                gpio.push(obj.val());
+            }
+            else{
+                alert('Add missing names or remove block!');
+                names = [];
+                ids = [];
+                gpio = [];
+                treshold = [];
+                range = [];
+                return false;
+            }
+        });
+        $('.show').find('.focusedName').each(function(){
+            var obj = $(this);
+            if(obj.val() != ""){
+                names.push(obj.val());
+            }
+            else{
+                alert('Add missing names or remove block!');
+                names = [];
+                ids = [];
+                gpio = [];
+                treshold = [];
+                range = [];
+                return false;
+            }
+        });
+        $('.show').find('.focusedID').each(function(){
+            var obj = $(this);
+            if(obj.val() != ""){
+                ids.push(obj.val());
+            }
+            else{
+                alert('Add missing ids or remove block!');
+                names = [];
+                ids = [];
+                gpio = [];
+                treshold = [];
+                range = [];                
+                return false;
+            }
+        });
+        $('.show').find('.focusedTreshold').each(function(){
+            var obj = $(this);
+            if(obj.val() != ""){
+                treshold.push(obj.val());
+            }
+            else{
+                alert('Add missing ids or remove block!');
+                names = [];
+                ids = [];
+                gpio = [];
+                treshold = [];
+                range = [];
+                return false;
+            }
+        });
+        $('.show').find('.focusedRange').each(function(){
+            var obj = $(this);
+            if(obj.find(":selected").text() != ""){
+                range.push(obj.find(":selected").text());
+            }
+            else{
+                alert('Add missing ids or remove block!');
+                names = [];
+                ids = [];
+                gpio = [];
+                treshold = [];
+                range = [];
+                return false;
+            }
+        });
+        //var conceptName = $('#aioConceptName').find(":selected").text();
+
+        //send object to router
+        var lights = [];
+        if(ids != ''){
+            var room = {
+                name: "",
+                gpio: "",
+                relayId: "",
+                treshold: "",
+                range: ""
+            };
+            for(let i = 0; i < ids.length; i++){
+                room = {};
+                room.name = names[i];
+                room.relayId = ids[i];
+                room.gpio = gpio[i];
+                room.treshold = treshold[i];
+                room.range = range[i];
+                lights.push(room); 
+            }
+            lights = JSON.stringify(lights);
+            $.ajax({
+                type : 'POST',
+                url : 'temperatureControll/update',
+                data: {
+                    newLights: lights
+                },
+                success: function(){
+                    alert('Profile updated!');
+                    $.ajax({
+                        type : 'POST',
+                        url : 'readStatuses/childProcess',
+                        data: {
+                            newLights: lights
+                        },
+                        success: function(){ 
+                            //window.location.replace('/index');
+                        }
+                    });
+                    window.location.replace('/index');
+                }
+            });
+        }
+        
+        return false;
+    });
+
+    var counter = collectIds();
+
+    //collects hidden bulbs ids
+    function collectIds(){
+        var ids = [];
+        $('.hide[id]').not('.show').map(function(){
+             ids.push(
+                 this.id.slice(this.id.length - 1))
+             });//(x => ids.push(x.id));
+        return ids;
+    }
+
+    //adds the bulb
+    $("span[class^='glyphicon glyphicon-plus-sign']").on('click', function () {
+        $('#lightBlock'+counter[0]).toggleClass('show');
+        counter = collectIds();
+        return false;
+    });
+
+    //activate delete mode
+    $('.delete').on('click', function(){
+        $(this).toggleClass('red');
+        var c = $(this).attr('class');
+        if(c.includes('red')){
+            $("div[class^='hide show']").children('div').css('border', '3px solid red');
+            $("div[class^='hide show']").find('i').removeClass('fa fa-thermometer-2').addClass('fa fa-times').css('color', 'red');
+            $("div[class^='hide show']").find('a').attr('href', '#');
+            //$("div[class^='hide show']").find('i').toggleClass('pullDownD');
+            $('#addBlock').toggleClass('hide');
+        }
+        else{
+            $("div[class^='hide']").children('div').css('border', '3px solid #fff')
+            $("div[class^='hide show']").find('i').removeClass('fa fa-times').addClass('fa fa-thermometer-2').css('color', '#fff');
+            $("div[class^='hide show']").find('a').removeAttr('href');
+            //$("div[class^='hide show']").find('i').toggleClass('p');
+            $('#addBlock').toggleClass('hide');
+        }
+        return false;
+    });
+
+    //removes bulb
+    $("a[class='remove']").on('click', function(){
+        var Href = $(this).attr('href');
+        if(typeof Href !== 'undefined'){
+            var num = $(this).closest(".hide").prop('id');
+            num = num.slice(num.length - 1);
+            $(this).find('i').removeClass('fa fa-times').addClass('fa fa-pullDownD').css('color', '#fff');
+            $(this).removeAttr('href');
+            $('#lightBlock'+num).find('.focusedID').removeAttr('value');
+            $('#lightBlock'+num).find('.focusedName').removeAttr('value');
+            $('#lightBlock'+num).toggleClass('show');
+        }
+        counter = collectIds();
+        return false;
+    });
+
+</script>

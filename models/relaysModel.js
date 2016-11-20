@@ -18,6 +18,13 @@ var RelaysSchema = mongoose.Schema({
         sensorPin: String,
         relayId: Number,
         delay: Number
+    }],
+    temperature: [{
+        name: String,
+        gpio: Number,
+        relayId: Number,
+        treshold: Number,
+        range: String
     }]
 });
 
