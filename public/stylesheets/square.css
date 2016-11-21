@@ -96,6 +96,10 @@
     margin-top: 55px;
 }
 
+.pullDownA {
+    margin-top: 40px;
+}
+
 .pullUp {
     margin-top: 15px;
     margin-left: -10px;
@@ -103,6 +107,15 @@
 .square-temp {
     width: 20vw;
     height: 18vw;
+    border: 3px solid #fff;   
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.square-temp-1 {
+    width: 20vw;
+    height: 15vw;
     border: 3px solid #fff;   
     border-radius: 10px;
     margin-bottom: 5px;

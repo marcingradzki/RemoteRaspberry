@@ -20,13 +20,13 @@
     </div>
     <%if((home.temperature != '') && (!editMode) ){%><!-- home.temperature != null -->
     <%for(var i = 0; i < home.temperature.length; i++){%>
-    <div id='lightBlock<%=i%>' class='square-temp center-block row'>
+    <div id='lightBlock<%=i%>' class='square-temp-1 center-block row'>
         <div class='col-md-4 col-xs-4' >
-            <div><a href='#'><i class='fa fa-thermometer-2 pullDownD canSwitch' aria-hidden="true" id=''></i></a></div>
+            <div><a href='#'><i class='fa fa-thermometer-2 pullDownA canSwitch' aria-hidden="true" id=''></i></a></div>
         </div>
         <div class='col-md-8 col-xs-8' >
             <!-- dane -->
-            <div class='row'>
+            <div class='row' style='margin-top:10px'>
                 <div class='col-lg-6 col-xs-7'><p>Name:</p></div>
                 <div class='col-lg-2 col-xs-1'><p><%=home.temperature[i].name%></p></div>
             </div>
@@ -40,11 +40,15 @@
             </div>
             <div class='row'>
                 <div class='col-sm-6 col-xs-6'><p>Treshold: </p></div>
-                <div class='col-sm-2 col-xs-2'><p><%=home.temperature[i].treshold%></p></div>
+                <div class='col-sm-2 col-xs-2'><p><%=home.temperature[i].treshold%>°C</p></div>
             </div>
             <div class='row'>
                 <div class='col-sm-6 col-xs-6'><p>Range: </p></div>
                 <div class='col-sm-2 col-xs-2'><p><%=home.temperature[i].range%></p></div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-6 col-xs-6'><p>Temperature: </p></div>
+                <div class='col-sm-2 col-xs-2'><p><%=currentTemperature%>°C</p></div>
             </div>
         </div>    
     </div>

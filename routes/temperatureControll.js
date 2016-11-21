@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var Relays = require('../models/relaysModel');
 var SerialPort = require('serialport');
 var process = require('child_process');
+var sensor = require('node-dht-sensor');
 
 var light = new Light();
 
@@ -35,6 +36,16 @@ router.post('/update', function(req, res){
 });
 
 router.post('/', function(req, res, next){
+  var currentTemperature;
+  sensor.read(11, 4, function(err, temperature, humidity) {
+      if (!err) {
+        currentTemperature = temperature;
+        console.log(currentTemperature);
+      }
+      else{
+    console.log(err);
+      }
+  });
   var newSchema = new Relays({
     name : 'Home',
     freeRelaysNumber: 8,
@@ -65,17 +76,20 @@ router.post('/', function(req, res, next){
           Light : Light,
           home: r, 
           editMode : false,
-          statuses: statuses
+          statuses: statuses,
+          currentTemperature: currentTemperature
         });
       });
     }
       else{
+        console.log('--> ' + currentTemperature);
         res.render('temperatureControll', {
           title: 'Temperature Controll',
           Light : Light,
           home: home, 
           editMode : req.body.editMode,
-          statuses: statuses
+          statuses: statuses,
+          currentTemperature: currentTemperature
         });
       }
     } 
