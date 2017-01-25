@@ -11,8 +11,25 @@ var UserSchema = mongoose.Schema({
     },
     email: {
         type: String
+    },
+    adminRole: {
+        type: Boolean, default: false
     }
 });
+
+UserSchema.pre('save', function(next){
+    var user = this;
+    //console.log("password " + user.password);
+    //check if password is modified, else no need to do anything
+    if (!user.isModified('password')) {
+        console.log('not modified');
+       return next()
+    }
+    console.log('modified');
+    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8), null);
+    next()
+})
+
 
 var User = module.exports = mongoose.model('User', UserSchema);
 

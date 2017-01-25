@@ -6,7 +6,7 @@ var process = require('child_process');
 var light = new Light();
 var t = [12,18];
 var statuses = [];
-var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, function(){
+/*var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, function(){
         port.write(['0xFF','0xA1','0x00'], cb(port));
       });
 
@@ -76,7 +76,7 @@ router.post('/toggle', function(req, res){
   var p1 = new Promise(function(resolve, reject){
       /*var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, function(){
         port.write(['0xFF','0xA1','0x00'], cb(port));
-      });*/
+      });*//*
       if(!port.isOpen()){
         port.open();
       }
@@ -90,12 +90,9 @@ router.post('/toggle', function(req, res){
     res.send(statuses);
   });
 });
-
-router.post('/', function(req, res){
+*/
+router.post('/', function(req, res){/*
   var p1 = new Promise(function(resolve, reject){
-    /*var port = new SerialPort('/dev/ttyUSB0',{parser: SerialPort.parsers.raw}, function(){
-      ;
-    });*/
       if(!port.isOpen()){
         port.open();
       }
@@ -105,7 +102,8 @@ router.post('/', function(req, res){
   p1.then(function(s){
     //port.close();
     res.send(statuses);
-  });
+  });*/
+  res.send([1,1,1,1,1,1,1,1]);
 });
 
 module.exports = router;

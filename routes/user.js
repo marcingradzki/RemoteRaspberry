@@ -37,12 +37,13 @@ router.post('/register', function(req, res) {
     var newUser = new User({
       username: username,
       email: email,
-      password: password
+      password: password,
+      adminRole: false
     });
 
     User.createUser(newUser, function(err, user){
       if(err) throw err;
-      console.log(user.username);
+      console.log(user.username + " " + user.adminRole);
       req.flash('success_msg', 'You are sucessfully registered, please log in');
       res.redirect('/');
     })   
@@ -89,8 +90,6 @@ router.get('/logout', function(req, res){
 
 	req.flash('success_msg', 'You are logged out!');
 
-	res.redirect('/login');
-
 });
 
 router.get('/logout', function(req, res){
@@ -99,6 +98,30 @@ router.get('/logout', function(req, res){
   res.redirect('/login');
 });
 
+router.get('/manage', function(req, res){
+  res.render('manage', {title: 'Manage account'});
+});
+
+router.post('/change', function(req, res, next){
+  var newpass = req.body.new;
+  var newpassconfirm = req.body.new2;
+  if (newpass !== newpassconfirm) {
+        throw new Error('Password and confirm password do not match');
+     }
+
+     var user = req.user;
+     //console.log(">" + user.password + "< >" + newpass + "<");
+     user.password = newpass;
+
+     user.save(function(err){
+         if (err) { next(err) }
+         else {
+             req.logout();
+             req.flash('success_msg', 'Password changed! Use new password to log in');
+             res.redirect('/login');
+         }
+     })
+});
 
 
 module.exports = router;

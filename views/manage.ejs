@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src='/js/bootstrap.js'></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/square.css' />
+    <link rel='stylesheet' href='/stylesheets/font-awesome.min.css' />
+    <link rel='stylesheet' href='/stylesheets/weather-icons.min.css' />
+  </head>
+  <body>
+    <div class='container'>
+      <% include templates/headers.ejs %>
+      <div id='content'><!-- zmiana diva w zaleznosci od buttona -->
+        <h2 align='center'>Change password</h2>
+        <br/>
+        <div class='row'>
+            <div class="col-lg-6 col-lg-offset-3 text-center">
+                <form method="post" action="/change/change">
+                    <div class="form-group">
+                        <label>New password</label>
+                        <input type="password" class="form-control" placeholder="Password" name="new">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm new password</label>
+                        <input type="password" class="form-control" placeholder="Password" name="new2">
+                    </div>
+                    <button type="submit" class="btn btn-default">Change</button>
+                </form>
+            </div>
+        </div>
+        <br/></br>
+        <h2 align='center'>Grant admin role</h2>
+        <br/>
+        <div class='row'>
+            <div class="col-lg-6 col-lg-offset-3 text-center">
+                <form method="post" action="/user/grant">
+                    <div class="form-group">
+                        <label>Enter username</label>
+                        <input type="password" class="form-control" placeholder="Password" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Grant</button>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    
+  </script>
+</html>

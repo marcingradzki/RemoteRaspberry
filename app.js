@@ -91,6 +91,8 @@ app.use('/lightsControll', lightsControll);
 app.use('/readStatuses', readStatuses);
 app.use('/sensorsControll', sensorsControll);
 app.use('/temperatureControll', temperatureControll);
+app.use('/manage', user);
+app.use('/change', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
