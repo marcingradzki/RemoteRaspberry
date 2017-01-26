@@ -8,6 +8,23 @@ var User = require('../models/model')
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
+  	/*
+	User.findOne({username: 'Admin'}).exec(function(err, obj){
+		if(err) console.log(err);
+		if(obj === null){
+			var newUsr = new User({
+				username: 'Admin',
+				email: admin@admin.com,
+				password: 'admin',
+				adminRole: true
+			});
+			User.createUser(newUsr, function(err){
+				if(err) console.log(err);
+				else console.log('Admin user created!');
+			});
+		}
+	});
+	*/
   res.render('login', { title: 'Login'});
 });
 
