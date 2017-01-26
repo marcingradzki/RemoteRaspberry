@@ -203,6 +203,7 @@
     });
 
     //light the bulb
+    <% if(user.adminRole) { %>
     $(document).on('click', ".canSwitch" , function () {
         $(this).toggleClass('color');
         var $parent = $(this).parent().parent().parent().parent();//.closest('square-bulb');
@@ -223,6 +224,7 @@
         });
         return false;
     });
+    <% } %>
     var counter = collectIds();
 
     //collects hidden bulbs ids
