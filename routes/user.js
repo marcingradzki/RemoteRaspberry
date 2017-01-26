@@ -123,5 +123,28 @@ router.post('/change', function(req, res, next){
      })
 });
 
+var User = require(../models/model);
+
+router.post('/grant', function(req, res, next){
+	var name = req.body.userName;
+	
+	User.findOne({username: name}).exec(function(err, obj){
+		if(err) console.log(err);
+		else{
+			var role = obj.adminRole;
+			if(role){
+				obj.adminRole = false;
+			}
+			else{
+				obj.adminRole = true;
+			}
+			obj.save();
+			//zakomunikowac userowi ze zmieniono
+		}
+	
+	});
+	
+	);
+}
 
 module.exports = router;
