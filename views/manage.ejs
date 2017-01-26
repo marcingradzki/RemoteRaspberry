@@ -33,20 +33,28 @@
                 </form>
             </div>
         </div>
+        <% if(user.adminRole) {%>
         <br/></br>
         <h2 align='center'>Grant admin role</h2>
         <br/>
         <div class='row'>
             <div class="col-lg-6 col-lg-offset-3 text-center">
-                <form method="post" action="/user/grant">
+          <% if(success_msg != ''){ %>
+            <div class="alert alert-success"><%=success_msg%></div>
+          <% } %>
+          <% if(error_msg != ''){ %>
+            <div class="alert alert-danger"><%=error_msg%></div>
+          <% } %>
+                <form method="post" action="/grant">
                     <div class="form-group">
                         <label>Enter username</label>
-                        <input type="password" class="form-control" placeholder="Password" name="password">
+                        <input type="text" class="form-control" placeholder="Username" name="userName">
                     </div>
                     <button type="submit" class="btn btn-default">Grant</button>
                 </form>
             </div>
         </div>
+        <% } %>
       </div>
     </div>
   </body>

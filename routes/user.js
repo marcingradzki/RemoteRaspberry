@@ -8,24 +8,30 @@ var User = require('../models/model')
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
-  	/*
+  	
 	User.findOne({username: 'Admin'}).exec(function(err, obj){
 		if(err) console.log(err);
 		if(obj === null){
+      console.log('Admin creation...');
 			var newUsr = new User({
 				username: 'Admin',
-				email: admin@admin.com,
+				email: 'admin@admin.com',
 				password: 'admin',
 				adminRole: true
 			});
 			User.createUser(newUsr, function(err){
 				if(err) console.log(err);
-				else console.log('Admin user created!');
+				else{
+          console.log('Admin user created!');
+        } 
 			});
 		}
+    else{
+      res.render('login', { title: 'Login'});
+    }
 	});
-	*/
-  res.render('login', { title: 'Login'});
+	
+  
 });
 
 router.get('/register', function(req, res, next) {
@@ -60,7 +66,7 @@ router.post('/register', function(req, res) {
 
     User.createUser(newUser, function(err, user){
       if(err) throw err;
-      console.log(user.username + " " + user.adminRole);
+      console.log('New user: ' + user.username + ' admin privileges: ' + user.adminRole);
       req.flash('success_msg', 'You are sucessfully registered, please log in');
       res.redirect('/');
     })   
@@ -103,13 +109,6 @@ router.post('/login',
   });
 
 router.get('/logout', function(req, res){
-	req.logout();
-
-	req.flash('success_msg', 'You are logged out!');
-
-});
-
-router.get('/logout', function(req, res){
   req.logout();
   req.flash('success_msg', 'Logged out!');
   res.redirect('/login');
@@ -127,7 +126,6 @@ router.post('/change', function(req, res, next){
      }
 
      var user = req.user;
-     //console.log(">" + user.password + "< >" + newpass + "<");
      user.password = newpass;
 
      user.save(function(err){
@@ -140,13 +138,10 @@ router.post('/change', function(req, res, next){
      })
 });
 
-var User = require(../models/model);
-
 router.post('/grant', function(req, res, next){
 	var name = req.body.userName;
-	
 	User.findOne({username: name}).exec(function(err, obj){
-		if(err) console.log(err);
+		if(err) req.flash('error_msg', 'No such a user!');
 		else{
 			var role = obj.adminRole;
 			if(role){
@@ -156,12 +151,10 @@ router.post('/grant', function(req, res, next){
 				obj.adminRole = true;
 			}
 			obj.save();
-			//zakomunikowac userowi ze zmieniono
+			req.flash('success_msg', 'Privileges changed!');
+      res.redirect('/manage');
 		}
-	
 	});
-	
-	);
-}
+});
 
 module.exports = router;
