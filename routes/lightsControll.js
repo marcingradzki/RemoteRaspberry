@@ -11,7 +11,7 @@ var light = new Light();
 var statuses = [];
 
 router.get('/', function(req, res, next){
-  res.render('index', {title: 'Lights Controll', Light : Light, editMode : false, statuses: statuses});
+  res.render('index', {title: 'Power Controll', Light : Light, editMode : false, statuses: statuses});
 });
 
 router.post('/update', function(req, res){
@@ -31,7 +31,7 @@ router.post('/update', function(req, res){
   pr.then(function(s){
     console.log(s);
     res.render('index', {
-          title: 'Lights Controll', statuses: statuses
+          title: 'Power Controll', statuses: statuses
         });
   });
 });
@@ -64,7 +64,7 @@ router.post('/', function(req, res){
         p1.then(function(r){
           console.log(r);
         res.render('lightsControll', {
-          title: 'Lights Controll',
+          title: 'Power Controll',
           Light : Light,
           home: r, 
           editMode : false,
@@ -74,7 +74,7 @@ router.post('/', function(req, res){
     }
       else{
         res.render('lightsControll', {
-          title: 'Lights Controll',
+          title: 'Power Controll',
           Light : Light,
           home: home, 
           editMode : req.body.editMode,
