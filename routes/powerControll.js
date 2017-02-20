@@ -63,7 +63,7 @@ router.post('/', function(req, res){
         });
         p1.then(function(r){
           console.log(r);
-        res.render('lightsControll', {
+        res.render('powerControll', {
           title: 'Power Controll',
           Light : Light,
           home: r, 
@@ -73,7 +73,7 @@ router.post('/', function(req, res){
       });
     }
       else{
-        res.render('lightsControll', {
+        res.render('powerControll', {
           title: 'Power Controll',
           Light : Light,
           home: home, 

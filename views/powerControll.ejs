@@ -129,7 +129,7 @@
     $(document).on('click', '.edit' ,function(){
         $.ajax({
                 type : 'POST',
-                url : 'lightsControll',
+                url : 'powerControll',
                 data: {
                     editMode : true
                 },
@@ -188,7 +188,7 @@
             lights = JSON.stringify(lights);
             $.ajax({
                 type : 'POST',
-                url : 'lightsControll/update',
+                url : 'powerControll/update',
                 data: {
                     newLights: lights
                 },

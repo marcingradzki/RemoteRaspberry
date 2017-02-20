@@ -8,7 +8,7 @@ gpio.setup(process.argv[3], gpio.DIR_IN, gpio.EDGE_BOTH);
 gpio.on('change', function(channel, value) {
 	console.log(channel);
     if(value === false && state === true){
-		exec('./sensor.sh x0'+ process.argv[2] +' x01' , function (error, stdout, stderr) {
+		exec('./onoff.sh x0'+ process.argv[2] +' x01' , function (error, stdout, stderr) {
 			if(error){
 				console.log(error.code + error);
 			}
@@ -16,7 +16,7 @@ gpio.on('change', function(channel, value) {
 		});
 
 		setTimeout(function(){
-			exec('./sensor.sh x0' + process.argv[2] +' x00' , function (error, stdout, stderr) {
+			exec('./onoff.sh x0' + process.argv[2] +' x00' , function (error, stdout, stderr) {
 				if(error){
 					console.log(error.code + error);
 				}
